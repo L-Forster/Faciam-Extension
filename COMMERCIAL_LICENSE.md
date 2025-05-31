@@ -50,4 +50,5 @@ The commercial license does not modify or replace AGPLv3 for any other user. All
 
 ---
 
-By offering this commercial license, we ensure that this project remains open source under AGPLv3 for the community, while providing a clear path for organizations that require proprietary or closed-source use. If you have questions about licensing, please contact us at email@example.com.
+By offering this commercial license, we ensure that this project remains open source under AGPLv3 for the community, while providing a clear path for organizations that require proprietary or closed-source use. If you have questions about licensing, please contact us at louisforster64@gmail.com.
+
