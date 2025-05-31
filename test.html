@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Web Customization Agent - Debug Environment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .debug-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 400px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .debug-header {
+            background: #2563eb;
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+        }
+        
+        .debug-content {
+            padding: 15px;
+        }
+        
+        .command-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .execute-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .execute-btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .log-area {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        
+        .api-config {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .api-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        
+        /* Sample content styles */
+        .sample-site {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .site-header {
+            background: #dc2626;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .site-nav {
+            background: #991b1b;
+            padding: 10px 20px;
+        }
+        
+        .site-nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        
+        .content-area {
+            padding: 20px;
+        }
+        
+        .clickbait-headline {
+            font-size: 24px;
+            font-weight: bold;
+            color: #dc2626;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        
+        .clickbait-headline:hover {
+            color: #b91c1c;
+        }
+        
+        .article {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #dc2626;
+        }
+        
+        .sidebar {
+            background: #f3f4f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .ad-banner {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Debug Panel -->
+    <div class="debug-panel">
+        <div class="debug-header">
+            AI Web Customization Agent - Debug
+        </div>
+        <div class="debug-content">
+            <div class="api-config">
+                <strong>⚠️ AI Configuration Required</strong>
+                <input type="password" id="apiKey" class="api-input" placeholder="Enter Gemini API Key (optional for demo)">
+                <select id="demoMode" class="api-input">
+                    <option value="true">Demo Mode (Simulated AI)</option>
+                    <option value="false">Real AI Mode</option>
+                </select>
+            </div>
+            
+            <input type="text" id="commandInput" class="command-input" 
+                   placeholder="Enter command (e.g., 'remove clickbait headlines')" 
+                   value="remove clickbait headlines">
+            
+            <button id="executeBtn" class="execute-btn">Execute Command</button>
+            
+            <div>
+                <strong>Debug Log:</strong>
+                <div id="logArea" class="log-area"></div>
+            </div>
+            
+            <button id="resetBtn" class="execute-btn" style="background: #dc2626; margin-top: 10px;">
+                Reset All Changes
+            </button>
+        </div>
+    </div>
+
+    <!-- Sample Website Content -->
+    <div class="sample-site">
+        <header class="site-header">
+            <h1>The Daily Mirror - Sample Site</h1>
+        </header>
+        
+        <nav class="site-nav">
+            <a href="#">Home</a>
+            <a href="#">News</a>
+            <a href="#">Sports</a>
+            <a href="#">Entertainment</a>
+        </nav>
+        
+        <div class="content-area">
+            <h1 class="clickbait-headline">You Won't Believe What This Celebrity Did Next - SHOCKING!</h1>
+            
+            <div class="article">
+                <h2 class="clickbait-headline">Doctors HATE This One Simple Trick That Will Blow Your Mind!</h2>
+                <p>This is a sample article with clickbait headlines that should be transformed by the AI agent.</p>
+            </div>
+            
+            <div class="ad-banner">
+                🎯 ADVERTISEMENT - Click Here for Amazing Deals!
+            </div>
+            
+            <div class="article">
+                <h3 class="clickbait-headline">Number 7 Will SHOCK You - Unbelievable Results!</h3>
+                <p>Another sample article paragraph that contains normal content.</p>
+            </div>
+            
+            <div class="sidebar">
+                <h4>Trending Now</h4>
+                <ul>
+                    <li class="clickbait-headline" style="font-size: 16px;">What Happens Next Will Amaze You!</li>
+                    <li class="clickbait-headline" style="font-size: 16px;">This Incredible Discovery Changes Everything!</li>
+                </ul>
+            </div>
+            
+            <div class="article">
+                <h2>Regular News: Government Announces New Policy</h2>
+                <p>This is a normal, non-clickbait headline that should remain unchanged.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simplified AI Web Customization Agent for debugging
+        class AIWebCustomizationAgentDebug {
+            constructor() {
+                this.appliedStyles = new Set();
+                this.styleElement = this.createStyleElement();
+                this.isDemo = true;
+                this.apiKey = null;
+                this.setupDebugInterface();
+                this.log('AI Web Customization Agent initialized in debug mode');
+            }
+
+            createStyleElement() {
+                const style = document.createElement('style');
+                style.id = 'ai-web-customizer-debug-styles';
+                document.head.appendChild(style);
+                return style;
+            }
+
+            setupDebugInterface() {
+                const executeBtn = document.getElementById('executeBtn');
+                const resetBtn = document.getElementById('resetBtn');
+                const apiKeyInput = document.getElementById('apiKey');
+                const demoModeSelect = document.getElementById('demoMode');
+
+                executeBtn.addEventListener('click', () => this.executeCommand());
+                resetBtn.addEventListener('click', () => this.resetAll());
+                
+                apiKeyInput.addEventListener('change', (e) => {
+                    this.apiKey = e.target.value;
+                    this.log(`API Key ${this.apiKey ? 'set' : 'cleared'}`);
+                });
+                
+                demoModeSelect.addEventListener('change', (e) => {
+                    this.isDemo = e.target.value === 'true';
+                    this.log(`Switched to ${this.isDemo ? 'Demo' : 'Real AI'} mode`);
+                });
+            }
+
+            log(message) {
+                const logArea = document.getElementById('logArea');
+                const timestamp = new Date().toLocaleTimeString();
+                logArea.textContent += `[${timestamp}] ${message}\n`;
+                logArea.scrollTop = logArea.scrollHeight;
+                console.log('AI Agent:', message);
+            }
+
+            async executeCommand() {
+                const commandInput = document.getElementById('commandInput');
+                const command = commandInput.value.trim();
+                
+                if (!command) {
+                    this.log('ERROR: No command entered');
+                    return;
+                }
+
+                this.log(`Executing command: "${command}"`);
+                
+                try {
+                    const result = await this.executeNaturalLanguageCommand(command);
+                    this.log(`Command completed successfully`);
+                    this.log(`Result: ${JSON.stringify(result, null, 2)}`);
+                } catch (error) {
+                    this.log(`ERROR: ${error.message}`);
+                    console.error('Command execution failed:', error);
+                }
+            }
+
+            async executeNaturalLanguageCommand(command) {
+                this.log('Step 1: Analyzing page context...');
+                const pageContext = await this.getPageContext();
+                this.log(`Found ${pageContext.headlines.length} headlines, ${pageContext.clickbaitElements.length} potential clickbait elements`);
+
+                this.log('Step 2: Planning execution with AI...');
+                const executionPlan = await this.planExecution(command, pageContext);
+                this.log(`Execution plan: ${executionPlan.actions.length} actions planned`);
+
+                this.log('Step 3: Executing planned actions...');
+                const results = [];
+                for (const action of executionPlan.actions) {
+                    try {
+                        this.log(`Executing tool: ${action.tool}`);
+                        const result = await this.executeTool(action.tool, action.parameters);
+                        results.push({ tool: action.tool, success: true, result });
+                        this.log(`✓ ${action.tool} completed successfully`);
+                    } catch (error) {
+                        results.push({ tool: action.tool, success: false, error: error.message });
+                        this.log(`✗ ${action.tool} failed: ${error.message}`);
+                    }
+                }
+
+                return { executionPlan, results };
+            }
+
+            async getPageContext() {
+                const headlines = this.extractHeadlines();
+                const clickbaitElements = this.identifyClickbaitElements();
+                
+                return {
+                    url: window.location.href,
+                    title: document.title,
+                    headlines: headlines,
+                    clickbaitElements: clickbaitElements,
+                    structure: {
+                        hasAds: document.querySelectorAll('.ad-banner').length > 0,
+                        hasSidebar: document.querySelectorAll('.sidebar').length > 0
+                    }
+                };
+            }
+
+            extractHeadlines() {
+                const headlines = [];
+                const selectors = 'h1, h2, h3, h4, h5, h6, .clickbait-headline';
+                
+                document.querySelectorAll(selectors).forEach(el => {
+                    const text = el.textContent.trim();
+                    if (text.length > 10) {
+                        headlines.push({
+                            text,
+                            selector: this.generateUniqueSelector(el),
+                            element: el
+                        });
+                    }
+                });
+                
+                return headlines;
+            }
+
+            identifyClickbaitElements() {
+                const clickbaitPatterns = [
+                    /you won't believe/i,
+                    /shocking/i,
+                    /amazing/i,
+                    /incredible/i,
+                    /unbelievable/i,
+                    /must see/i,
+                    /will blow your mind/i,
+                    /doctors hate/i,
+                    /this one trick/i,
+                    /number \d+ will/i,
+                    /what happens next/i
+                ];
+
+                const elements = [];
+                document.querySelectorAll('h1, h2, h3, h4, h5, h6, .clickbait-headline').forEach(el => {
+                    const text = el.textContent.trim();
+                    const isClickbait = clickbaitPatterns.some(pattern => pattern.test(text));
+                    
+                    if (isClickbait) {
+                        elements.push({
+                            text,
+                            selector: this.generateUniqueSelector(el),
+                            element: el,
+                            confidence: this.calculateClickbaitScore(text)
+                        });
+                    }
+                });
+
+                return elements.sort((a, b) => b.confidence - a.confidence);
+            }
+
+            calculateClickbaitScore(text) {
+                let score = 0;
+                const patterns = [
+                    { pattern: /you won't believe|shocking/i, weight: 3 },
+                    { pattern: /amazing|incredible/i, weight: 2 },
+                    { pattern: /doctors hate|this one trick/i, weight: 4 },
+                    { pattern: /number \d+|what happens next/i, weight: 2 }
+                ];
+
+                patterns.forEach(({ pattern, weight }) => {
+                    if (pattern.test(text)) score += weight;
+                });
+
+                const exclamations = (text.match(/!/g) || []).length;
+                score += exclamations;
+
+                return score;
+            }
+
+            generateUniqueSelector(element) {
+                if (element.id) return `#${element.id}`;
+                if (element.className) {
+                    const classes = Array.from(element.classList).slice(0, 2);
+                    return `.${classes.join('.')}`;
+                }
+                return element.tagName.toLowerCase();
+            }
+
+            async planExecution(command, context) {
+                if (this.isDemo) {
+                    return this.simulateExecutionPlan(command, context);
+                } else {
+                    return await this.callRealAI(command, context);
+                }
+            }
+
+            simulateExecutionPlan(command, context) {
+                const lowerCommand = command.toLowerCase();
+                
+                if (lowerCommand.includes('clickbait') || lowerCommand.includes('headlines')) {
+                    return {
+                        reasoning: "User wants to remove clickbait. I'll select clickbait elements and transform their text.",
+                        actions: [
+                            {
+                                tool: 'selectElements',
+                                parameters: {
+                                    criteria: 'clickbait headlines',
+                                    elements: context.clickbaitElements.map(el => el.selector)
+                                },
+                                reasoning: 'Select elements identified as clickbait'
+                            },
+                            {
+                                tool: 'modifyText',
+                                parameters: {
+                                    selectors: context.clickbaitElements.map(el => el.selector),
+                                    transformType: 'remove_clickbait',
+                                    instructions: 'Transform clickbait headlines into objective, factual titles'
+                                },
+                                reasoning: 'Transform clickbait text to be more objective'
+                            }
+                        ]
+                    };
+                }
+
+                if (lowerCommand.includes('hide') && lowerCommand.includes('ads')) {
+                    return {
+                        reasoning: "User wants to hide advertisements",
+                        actions: [
+                            {
+                                tool: 'hideElements',
+                                parameters: { criteria: 'advertisements and promotional content' },
+                                reasoning: 'Hide ad elements from the page'
+                            }
+                        ]
+                    };
+                }
+
+                return {
+                    reasoning: "Generic command, applying basic modifications",
+                    actions: [
+                        {
+                            tool: 'applyCSS',
+                            parameters: { 
+                                css: '/* No specific action defined for this command */',
+                                description: command 
+                            },
+                            reasoning: 'Fallback action'
+                        }
+                    ]
+                };
+            }
+
+            async executeTool(toolName, parameters) {
+                switch (toolName) {
+                    case 'selectElements':
+                        return this.selectElements(parameters);
+                    case 'modifyText':
+                        return await this.modifyText(parameters);
+                    case 'hideElements':
+                        return this.hideElements(parameters);
+                    case 'applyCSS':
+                        return this.applyCSS(parameters);
+                    default:
+                        throw new Error(`Unknown tool: ${toolName}`);
+                }
+            }
+
+            selectElements(parameters) {
+                this.log(`Selecting elements: ${parameters.criteria}`);
+                const elements = parameters.elements || [];
+                this.log(`Found ${elements.length} matching elements`);
+                return elements;
+            }
+
+            async modifyText(parameters) {
+                const { selectors, transformType, instructions } = parameters;
+                const modifications = [];
+
+                this.log(`Modifying text for ${selectors.length} selectors`);
+
+                for (const selector of selectors) {
+                    const elements = document.querySelectorAll(selector);
+                    
+                    for (const element of elements) {
+                        const originalText = element.textContent.trim();
+                        if (originalText.length < 5) continue;
+
+                        const transformedText = await this.transformText(originalText, transformType, instructions);
+                        
+                        // Apply the transformation with visual indication
+                        element.setAttribute('data-original-text', originalText);
+                        element.textContent = transformedText;
+                        element.style.backgroundColor = '#e8f5e8';
+                        element.style.border = '2px solid #4caf50';
+                        element.style.transition = 'all 0.3s ease';
+                        element.setAttribute('data-ai-modified', 'true');
+
+                        modifications.push({
+                            selector,
+                            originalText,
+                            transformedText
+                        });
+
+                        this.log(`Transformed: "${originalText.substring(0, 50)}..." → "${transformedText.substring(0, 50)}..."`);
+                    }
+                }
+
+                return modifications;
+            }
+
+            async transformText(text, transformType, instructions) {
+                if (this.isDemo) {
+                    return this.simulateTextTransformation(text, transformType);
+                } else {
+                    return await this.callRealAIForText(text, transformType, instructions);
+                }
+            }
+
+            simulateTextTransformation(text, transformType) {
+                if (transformType === 'remove_clickbait') {
+                    let cleaned = text
+                        .replace(/you won't believe/gi, '')
+                        .replace(/shocking|amazing|incredible|unbelievable/gi, '')
+                        .replace(/will blow your mind/gi, '')
+                        .replace(/doctors hate this/gi, 'Health advice')
+                        .replace(/this one trick/gi, 'Method')
+                        .replace(/what happens next/gi, 'The outcome')
+                        .replace(/number \d+ will/gi, 'This')
+                        .replace(/!\s*!/g, '.')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+
+                    // Remove leading articles if sentence is broken
+                    cleaned = cleaned.replace(/^(will|that|which|who)\s+/i, '');
+                    
+                    // Capitalize first letter
+                    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+
+                    // Ensure proper ending
+                    if (!/[.!?]$/.test(cleaned)) {
+                        cleaned += '.';
+                    }
+
+                    return cleaned || 'News Update';
+                }
+
+                return text;
+            }
+
+            hideElements(parameters) {
+                const { criteria } = parameters;
+                this.log(`Hiding elements matching: ${criteria}`);
+
+                let selectors = [];
+                if (criteria.includes('ad')) {
+                    selectors = ['.ad-banner', '[class*="ad"]'];
+                }
+
+                const css = selectors.map(sel => 
+                    `${sel} { display: none !important; opacity: 0 !important; }`
+                ).join('\n');
+
+                if (css) {
+                    this.applyCSS({ css, description: `Hide ${criteria}` });
+                    return { hidden: selectors.length, css };
+                }
+
+                return { hidden: 0 };
+            }
+
+            applyCSS(parameters) {
+                const { css, description } = parameters;
+                this.log(`Applying CSS: ${description}`);
+                
+                const cssWithComment = `\n/* ${description} */\n${css}\n`;
+                this.styleElement.textContent += cssWithComment;
+                this.appliedStyles.add(description);
+                
+                return { applied: true, description };
+            }
+
+            async callRealAI(command, context) {
+                if (!this.apiKey) {
+                    throw new Error('API key required for real AI mode');
+                }
+
+                // This would make actual API calls to OpenAI
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${this.apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4o-mini',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'You are an AI that creates execution plans for web page customization. Respond with JSON only.'
+                            },
+                            {
+                                role: 'user',
+                                content: `Command: "${command}"\nContext: ${JSON.stringify(context)}\n\nCreate execution plan with tools: selectElements, modifyText, hideElements, applyCSS`
+                            }
+                        ],
+                        temperature: 0.3,
+                        max_tokens: 1000
+                    })
+                });
+
+                const data = await response.json();
+                return JSON.parse(data.choices[0].message.content);
+            }
+
+            resetAll() {
+                this.log('Resetting all customizations...');
+                
+                // Clear styles
+                this.styleElement.textContent = '';
+                this.appliedStyles.clear();
+
+                // Restore original text
+                document.querySelectorAll('[data-ai-modified]').forEach(el => {
+                    const originalText = el.getAttribute('data-original-text');
+                    if (originalText) {
+                        el.textContent = originalText;
+                    }
+                    el.removeAttribute('data-ai-modified');
+                    el.removeAttribute('data-original-text');
+                    el.style.backgroundColor = '';
+                    el.style.border = '';
+                    el.style.transition = '';
+                });
+
+                this.log('All customizations reset');
+            }
+        }
+
+        // Initialize the debug agent
+        window.aiAgent = new AIWebCustomizationAgentDebug();
+    </script>
+</body>
+</html>

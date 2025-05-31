@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 400px;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 18px;
+            margin: 0 0 5px 0;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 12px;
+            margin: 0;
+        }
+        
+        .input-section {
+            margin-bottom: 20px;
+        }
+        
+        .input-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        /* Shared style for both textareas */
+        .input-section textarea {
+            width: 100%;
+            min-height: 60px; /* Adjusted min-height for a more balanced look */
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        
+        .input-section textarea:focus {
+            outline: none;
+            border-color: #4285f4;
+        }
+        
+        .examples {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .examples strong {
+            color: #333;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        #applyBtn {
+            background: #4285f4;
+            color: white;
+        }
+        
+        #applyBtn:hover {
+            background: #3367d6;
+        }
+        
+        #applyBtn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        #resetBtn {
+            background: #f1f3f4;
+            color: #333;
+        }
+        
+        #resetBtn:hover {
+            background: #e8eaed;
+        }
+        
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            text-align: center;
+            display: none;
+        }
+        
+        .status.success {
+            background: #e8f5e8;
+            color: #2d5a2d;
+            border: 1px solid #c3e6c3;
+        }
+        
+        .status.error {
+            background: #fce8e6;
+            color: #c5221f;
+            border: 1px solid #f9ab9f;
+        }
+        
+        .status.loading {
+            background: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #bbdefb;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #1565c0;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .api-config {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e1e5e9;
+        }
+        
+        .api-config label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .api-config input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 AI CSS Customizer</h1>
+        <p>Transform any website with natural language</p>
+    </div>
+    
+    <div class="api-config">
+        <label for="apiKey">Gemini API Key (required):</label>
+        <input type="password" id="apiKey" placeholder="sk-...">
+    </div>
+
+    <div class="input-section global-prompt-section">
+        <label for="globalPrompt">Global Prompt (applies to all sites, overridden by local):</label>
+        <textarea id="globalPrompt" placeholder="e.g., Always use dark theme, increase all font sizes by 2px..."></textarea>
+    </div>
+    
+    <div class="input-section local-prompt-section">
+        <label for="userInput">Local Prompt (specific to this site/session):</label>
+        <textarea id="userInput" placeholder="Describe your customization preferences..."></textarea>
+        <div class="examples">
+            <strong>Examples:</strong><br>
+            • "Make all text red and bold"<br>
+            • "Hide the sidebar and center the content"<br>
+            • "Change background to gradient blue to purple"<br>
+            • "Make links bigger and remove underlines"<br>
+            • "Add a blur effect to all images"<br>
+            • "Apply dark theme with green accents"
+        </div>
+    </div>
+    
+    <div class="button-group">
+        <button id="applyBtn">Apply Changes</button>
+        <button id="resetBtn">Reset Page</button>
+    </div>
+    
+    <div id="status" class="status"></div>
+    
+    <script src="browser-polyfill.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* Base styles for the AI CSS Customizer extension */
+
+/* Ensure our styles don't interfere with the page */
+#ai-css-customizer-styles {
+    display: none !important;
+}
+
+/* Animation for smooth transitions when applying changes */
+.ai-customizer-transition {
+    transition: all 0.3s ease-in-out !important;
+}
+
+/* Helper classes for common customizations */
+.ai-hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.ai-fade {
+    opacity: 0.5 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.ai-highlight {
+    box-shadow: 0 0 0 2px #4285f4 !important;
+    transition: box-shadow 0.2s ease !important;
+}
+
+/* Custom scrollbar for better dark theme integration */
+.ai-dark-theme::-webkit-scrollbar {
+    width: 8px;
+    background: #2d2d2d;
+}
+
+.ai-dark-theme::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+.ai-dark-theme::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
