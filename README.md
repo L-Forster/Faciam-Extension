@@ -1,7 +1,7 @@
 # Faciam Extension - An Open Source client-side code personalization tool 
 
 
-Defines a suite of agnetic tools to dynamically edit the cleint-side content of webpages based on user preferences.
+Defines a suite of agnetic tools to dynamically edit the client-side content of webpages based on user preferences.
 
 ## List of available tools:
 
