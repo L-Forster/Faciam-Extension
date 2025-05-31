@@ -9,7 +9,9 @@ Defines a suite of agnetic tools to dynamically edit the client-side content of 
 `git clone https://github.com/L-Forster/Faciam-Extension/`
 
 Go to your browsers custom addon page (e.g., Firefox [about:debugging#/runtime/this-firefox])
+
 Click 'Load Temporary addon' and located the `manifest.json` file
+
 In the extension, enter your Gemini API key and you're ready to go!
 
 ## List of available tools:
