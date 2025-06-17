@@ -11,7 +11,7 @@ class AIWebCustomizationAgent {
         this.aiConfig = {
             apiKey: null,
             endpoint: 'https://generativelanguage.googleapis.com/v1beta/models',
-            model: 'gemini-2.0-flash-lite'
+            model: 'gemini-2.5-flash-lite'
         };
         this.tools = new Map();
         this.pageContext = null;
